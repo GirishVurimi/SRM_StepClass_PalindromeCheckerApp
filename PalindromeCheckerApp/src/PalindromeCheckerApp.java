@@ -1,9 +1,10 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
- * PalindromeCheckerApp - UC5: Stack-Based Palindrome Checker
- * This class uses the LIFO (Last In First Out) property of a Stack
- * to reverse a string and validate if it's a palindrome.
+ * PalindromeCheckerApp - UC6: Queue + Stack Based Palindrome Check
+ * This class compares FIFO (Queue) and LIFO (Stack) behaviors to validate a palindrome.
  */
 public class PalindromeCheckerApp {
 
@@ -12,28 +13,33 @@ public class PalindromeCheckerApp {
         System.out.println("--- Welcome to Palindrome Checker App ---");
         System.out.println("Application Version: 1.0");
 
-        String input = "madam";
+        String input = "radar";
 
-        // UC5: Data Structure: Stack
+        // UC6 Data Structures: Queue (FIFO) and Stack (LIFO)
+        Queue<Character> queue = new LinkedList<>();
         Stack<Character> stack = new Stack<>();
 
-        // Push Operation: Insert characters into the stack
+        // Enqueue and Push characters
         for (int i = 0; i < input.length(); i++) {
-            stack.push(input.charAt(i));
+            char ch = input.charAt(i);
+            queue.add(ch);   // Enqueue: First In First Out
+            stack.push(ch);  // Push: Last In First Out
         }
 
-        // Reversal Logic: Pop characters to build the reversed string
-        String reversed = "";
+        boolean isPalindrome = true;
+
+        // Logical Comparison: Compare dequeue vs pop
+        // Dequeue gives characters in original order; Pop gives them in reverse
         while (!stack.isEmpty()) {
-            // Pop Operation: Removes elements in reverse order
-            reversed += stack.pop();
+            if (!stack.pop().equals(queue.remove())) {
+                isPalindrome = false;
+                break;
+            }
         }
 
-        // Compare and Print Result
+        // Print Result
         System.out.println("Input: " + input);
-        System.out.println("Reversed via Stack: " + reversed);
-
-        if (input.equals(reversed)) {
+        if (isPalindrome) {
             System.out.println("Result: The string is a Palindrome.");
         } else {
             System.out.println("Result: The string is NOT a Palindrome.");
