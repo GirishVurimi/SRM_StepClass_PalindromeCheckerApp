@@ -1,9 +1,6 @@
-import java.util.LinkedList;
-
 /**
- * PalindromeCheckerApp - UC8: Linked List Based Palindrome Checker
- * This class uses a Singly Linked List and the Fast/Slow pointer technique
- * to find the middle and compare halves for a palindrome check.
+ * PalindromeCheckerApp - UC9: Recursive Palindrome Checker
+ * This class uses recursion and the call stack to validate a palindrome.
  */
 public class PalindromeCheckerApp {
 
@@ -12,35 +9,36 @@ public class PalindromeCheckerApp {
         System.out.println("--- Welcome to Palindrome Checker App ---");
         System.out.println("Application Version: 1.0");
 
-        String input = "racecar";
+        String input = "level";
 
-        // UC8 Data Structure: Singly Linked List
-        LinkedList<Character> list = new LinkedList<>();
-
-        // Convert string to linked list (Node Traversal)
-        for (char ch : input.toCharArray()) {
-            list.add(ch);
-        }
-
-        // Logic: Compare elements from front and back using list indexing
-        // (Simulating the behavior of comparing halves)
-        boolean isPalindrome = true;
-        int size = list.size();
-
-        for (int i = 0; i < size / 2; i++) {
-            // Compare front half with the corresponding element in the second half
-            if (!list.get(i).equals(list.get(size - 1 - i))) {
-                isPalindrome = false;
-                break;
-            }
-        }
+        // UC9: Recursive call
+        boolean result = isPalindrome(input, 0, input.length() - 1);
 
         // Display result
         System.out.println("Input: " + input);
-        if (isPalindrome) {
+        if (result) {
             System.out.println("Result: The string is a Palindrome.");
         } else {
             System.out.println("Result: The string is NOT a Palindrome.");
         }
+    }
+
+    /**
+     * Recursive method to check palindrome logic.
+     * Uses the Call Stack to manage subproblems.
+     */
+    public static boolean isPalindrome(String str, int start, int end) {
+        // UC9: Base Condition - If pointers meet or cross, it's a palindrome
+        if (start >= end) {
+            return true;
+        }
+
+        // Compare start & end characters
+        if (str.charAt(start) != str.charAt(end)) {
+            return false;
+        }
+
+        // Recursive Call: Solve for the inner substring
+        return isPalindrome(str, start + 1, end - 1);
     }
 }
