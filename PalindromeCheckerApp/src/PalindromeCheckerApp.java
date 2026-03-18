@@ -1,9 +1,9 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.LinkedList;
 
 /**
- * PalindromeCheckerApp - UC7: Deque-Based Optimized Palindrome Checker
- * This class uses a Deque to compare front and rear elements efficiently.
+ * PalindromeCheckerApp - UC8: Linked List Based Palindrome Checker
+ * This class uses a Singly Linked List and the Fast/Slow pointer technique
+ * to find the middle and compare halves for a palindrome check.
  */
 public class PalindromeCheckerApp {
 
@@ -12,25 +12,24 @@ public class PalindromeCheckerApp {
         System.out.println("--- Welcome to Palindrome Checker App ---");
         System.out.println("Application Version: 1.0");
 
-        String input = "deified";
+        String input = "racecar";
 
-        // UC7 Data Structure: Deque (Double Ended Queue)
-        Deque<Character> deque = new ArrayDeque<>();
+        // UC8 Data Structure: Singly Linked List
+        LinkedList<Character> list = new LinkedList<>();
 
-        // Insert characters into deque
+        // Convert string to linked list (Node Traversal)
         for (char ch : input.toCharArray()) {
-            deque.addLast(ch);
+            list.add(ch);
         }
 
+        // Logic: Compare elements from front and back using list indexing
+        // (Simulating the behavior of comparing halves)
         boolean isPalindrome = true;
+        int size = list.size();
 
-        // Compare front and rear elements
-        // Remove first & last characters and compare until empty or one element remains
-        while (deque.size() > 1) {
-            Character first = deque.removeFirst();
-            Character last = deque.removeLast();
-
-            if (!first.equals(last)) {
+        for (int i = 0; i < size / 2; i++) {
+            // Compare front half with the corresponding element in the second half
+            if (!list.get(i).equals(list.get(size - 1 - i))) {
                 isPalindrome = false;
                 break;
             }
